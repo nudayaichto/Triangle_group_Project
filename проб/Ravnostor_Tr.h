@@ -6,36 +6,36 @@ public:
 
     Ravnostor_Tr(T side) : Triangle<T>(side, side, side) {
         if (side <= 0) {
-            throw invalid_argument("Сторона должна быть положительной");
+            throw invalid_argument("Side must be positive");
         }
     }
 
-    // Меню для изменения стороны равностороннего треугольника
+    // РњРµРЅСЋ РґР»СЏ РёР·РјРµРЅРµРЅРёСЏ СЃС‚РѕСЂРѕРЅС‹ СЂР°РІРЅРѕСЃС‚РѕСЂРѕРЅРЅРµРіРѕ С‚СЂРµСѓРіРѕР»СЊРЅРёРєР°
     void change_sides() {
         int choice;
         T newSide;
         while (true) {
-            cout << "\nМеню:\n"
-                << "1. Изменить сторону (все стороны будут равны)\n"
-                << "2. Выйти из меню\n"
-                << "Выберите пункт: ";
+            cout << "\nMenu:\n"
+                << "1. Change side (all sides will be equal)\n"
+                << "2. Exit menu\n"
+                << "Select option: ";
             cin >> choice;
             if (choice == 2) break;
             if (choice == 1) {
-                cout << "Введите новое значение стороны: ";
+                cout << "Enter new side value: ";
                 cin >> newSide;
                 if (cin.fail() || newSide <= 0) {
-                    cout << "Ошибка: сторона должна быть положительным числом.\n";
+                    cout << "Error: side must be a positive number.\n";
                     cin.clear();
                     cin.ignore(numeric_limits<streamsize>::max(), '\n');
                     continue;
                 }
                 this->set_sides(newSide, newSide, newSide);
-                cout << "Стороны изменены на " << newSide << endl;
+                cout << "Sides changed to " << newSide << endl;
                 this->show();
             }
             else {
-                cout << "Неверный выбор.\n";
+                cout << "Invalid choice.\n";
             }
         }
     }
@@ -59,4 +59,3 @@ public:
         return this->a * 3;
     }
 };
-
