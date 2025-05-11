@@ -1,7 +1,7 @@
-#include "Triangle.h"
+#include "Triangle.h" // Olya
 #include "Ravnostor_Tr.h" //Kira
 #include "Ravnobed_Tr.h" //Annya
-//#include ""
+#include "Right_Tr.h" //Yliana
 #include <iostream>
 #include <thread> 
 using namespace std;
@@ -23,176 +23,224 @@ int main()
         switch (choice)
         {
         case 1:
-            system("cls"); // очистить экран
-            //Simple triangle
+            system("cls");
             cout << "Simple triangle: " << endl;
             try
             {
-                cout << "Создаем треугольник с вашими параметрами:\n";
+                cout << "Creating triangle with your parameters:\n";
                 double a, b, c;
-                cout << "Введите стороны треугольника (через пробел/entr): ";
+                cout << "Enter triangle sides (space/enter separated): ";
                 while (!(cin >> a >> b >> c))
                 {
-                    cout << "Ошибка ввода. Пожалуйста, введите три числа через пробел: ";
+                    cout << "Input error. Please enter three numbers separated by spaces: ";
                     cin.clear();
                     cin.ignore(numeric_limits<streamsize>::max(), '\n');
                 }
 
                 Triangle<double> tri(a, b, c);
                 tri.show();
-                cout << "Периметр: " << tri.perimetr() << endl;
-                cout << "Площадь: " << tri.area() << endl;
-                cout << "Радиус вписанной окружности: " << tri.in_circle() << endl;
-                cout << "Радиус описанной окружности: " << tri.out_circle() << endl;
-                cout << "\nХотите изменить стороны? (1 - да, 2 - нет, 3 - выход)" << endl;
+                cout << "Perimeter: " << tri.perimetr() << endl;
+                cout << "Area: " << tri.area() << endl;
+                cout << "Inscribed circle radius: " << tri.in_circle() << endl;
+                cout << "Circumscribed circle radius: " << tri.out_circle() << endl;
+                cout << "\nDo you want to change sides? (1 - yes, 2 - no, 3 - exit)" << endl;
                 int choise;
                 cin >> choise;
                 switch (choise)
                 {
                 case 1:
                     system("cls");
-                    cout << "\nИзменим стороны через меню\n";
+                    cout << "\nChanging sides through menu\n";
                     tri.change_sides();
-                    cout << "\nИтоговое состояние треугольника:\n";
+                    cout << "\nFinal triangle state:\n";
                     tri.show();
-                    cout << "Периметр: " << tri.perimetr() << endl;
-                    cout << "Площадь: " << tri.area() << endl;
-                    cout << "Радиус вписанной окружности: " << tri.in_circle() << endl;
-                    cout << "Радиус описанной окружности: " << tri.out_circle() << endl;
+                    cout << "Perimeter: " << tri.perimetr() << endl;
+                    cout << "Area: " << tri.area() << endl;
+                    cout << "Inscribed circle radius: " << tri.in_circle() << endl;
+                    cout << "Circumscribed circle radius: " << tri.out_circle() << endl;
                     cout << endl;
                     break;
 
                 case 2:
                     system("cls");
-                    cout << "\nИтоговое состояние треугольника:\n";
+                    cout << "\nFinal triangle state:\n";
                     tri.show();
-                    cout << "Периметр: " << tri.perimetr() << endl;
-                    cout << "Площадь: " << tri.area() << endl;
-                    cout << "Радиус вписанной окружности: " << tri.in_circle() << endl;
-                    cout << "Радиус описанной окружности: " << tri.out_circle() << endl;
+                    cout << "Perimeter: " << tri.perimetr() << endl;
+                    cout << "Area: " << tri.area() << endl;
+                    cout << "Inscribed circle radius: " << tri.in_circle() << endl;
+                    cout << "Circumscribed circle radius: " << tri.out_circle() << endl;
                     cout << endl;
                     break;
 
                 default:
                     system("cls");
-                    cout << "Выход из программы.";
+                    cout << "Exiting program.";
                     cout << endl;
                     break;
                 }
             }
             catch (const exception& a)
             {
-                cerr << "Ошибка: " << a.what() << endl;
+                cerr << "Error: " << a.what() << endl;
             }
             break;
         case 2:
             system("cls");
-            // Ravnostr triangle
             cout << "Ravnostr triangle: " << endl;
             try {
-                cout << "Создаем равносторонний треугольник.\n";
+                cout << "Creating equilateral triangle.\n";
                 double side;
-                cout << "Введите длину стороны треугольника: ";
+                cout << "Enter triangle side length: ";
                 while (!(cin >> side) || side <= 0) {
-                    cout << "Ошибка ввода. Введите положительное число: ";
+                    cout << "Input error. Please enter a positive number: ";
                     cin.clear();
-                    //cin.ignore(numeric_limits<streamsize>::max(), '\n');
                 }
 
                 Ravnostor_Tr<double> tri(side);
                 tri.show();
-                cout << "Периметр: " << tri.perimetr() << endl;
-                cout << "Площадь: " << tri.area() << endl;
-                cout << "Радиус вписанной окружности: " << tri.in_circle() << endl;
-                cout << "Радиус описанной окружности: " << tri.out_circle() << endl;
+                cout << "Perimeter: " << tri.perimetr() << endl;
+                cout << "Area: " << tri.area() << endl;
+                cout << "Inscribed circle radius: " << tri.in_circle() << endl;
+                cout << "Circumscribed circle radius: " << tri.out_circle() << endl;
 
-                cout << "\nХотите изменить сторону? (1 - да, 2 - нет): ";
+                cout << "\nDo you want to change the side? (1 - yes, 2 - no): ";
                 int choice;
                 cin >> choice;
                 if (choice == 1) {
                     tri.change_sides();
-                    cout << "\nИтоговое состояние треугольника:\n";
+                    cout << "\nFinal triangle state:\n";
                     tri.show();
-                    cout << "Периметр: " << tri.perimetr() << endl;
-                    cout << "Площадь: " << tri.area() << endl;
-                    cout << "Радиус вписанной окружности: " << tri.in_circle() << endl;
-                    cout << "Радиус описанной окружности: " << tri.out_circle() << endl;
+                    cout << "Perimeter: " << tri.perimetr() << endl;
+                    cout << "Area: " << tri.area() << endl;
+                    cout << "Inscribed circle radius: " << tri.in_circle() << endl;
+                    cout << "Circumscribed circle radius: " << tri.out_circle() << endl;
                     cout << endl;
                 }
                 else {
-                    cout << "Выход из программы.\n";
+                    cout << "Exiting program.\n";
                 }
             }
             catch (const exception& e) {
-                cerr << "Ошибка: " << e.what() << endl;
+                cerr << "Error: " << e.what() << endl;
             }
             break;
         case 3:
             system("cls");
-            // Ravnobed triangle
             cout << "Ravnobed triangle: " << endl;
             try {
-                cout << "Создаем треугольник с вашими параметрами:\n";
+                cout << "Creating triangle with your parameters:\n";
                 double a, b;
-                cout << "Введите 2 стороны треугольника (через пробел/entr): ";
+                cout << "Enter 2 triangle sides (space/enter separated): ";
                 while (!(cin >> a >> b)) 
                 {
-                    cout << "Ошибка ввода. Пожалуйста, введите три числа через пробел: ";
+                    cout << "Input error. Please enter two numbers separated by spaces: ";
                     cin.clear();
                     cin.ignore(numeric_limits<streamsize>::max(), '\n');
                 }
 
                 Ravnobed_Tr<double> tri(a, b);
                 tri.show();
-                cout << "Периметр: " << tri.perimetr() << endl;
-                cout << "Площадь: " << tri.area() << endl;
-                cout << "Радиус вписанной окружности: " << tri.in_circle() << endl;
-                cout << "Радиус описанной окружности: " << tri.out_circle() << endl;
-                cout << "\nХотите изменить стороны? (1 - да, 2 - нет, 3 - выход)" << endl;
+                cout << "Perimeter: " << tri.perimetr() << endl;
+                cout << "Area: " << tri.area() << endl;
+                cout << "Inscribed circle radius: " << tri.in_circle() << endl;
+                cout << "Circumscribed circle radius: " << tri.out_circle() << endl;
+                cout << "\nDo you want to change sides? (1 - yes, 2 - no, 3 - exit)" << endl;
                 int choise;
                 cin >> choise;
                 switch (choise)
                 {
                 case 1:
-                    cout << "\nИзменим стороны через меню\n";
+                    cout << "\nChanging sides through menu\n";
                     tri.change_sides();
-                    cout << "\nИтоговое состояние треугольника:\n";
+                    cout << "\nFinal triangle state:\n";
                     tri.show();
-                    cout << "Периметр: " << tri.perimetr() << endl;
-                    cout << "Площадь: " << tri.area() << endl;
-                    cout << "Радиус вписанной окружности: " << tri.in_circle() << endl;
-                    cout << "Радиус описанной окружности: " << tri.out_circle() << endl;
+                    cout << "Perimeter: " << tri.perimetr() << endl;
+                    cout << "Area: " << tri.area() << endl;
+                    cout << "Inscribed circle radius: " << tri.in_circle() << endl;
+                    cout << "Circumscribed circle radius: " << tri.out_circle() << endl;
                     break;
 
                 case 2:
-                    cout << "\nИтоговое состояние треугольника:\n";
+                    cout << "\nFinal triangle state:\n";
                     tri.show();
-                    cout << "Периметр: " << tri.perimetr() << endl;
-                    cout << "Площадь: " << tri.area() << endl;
-                    cout << "Радиус вписанной окружности: " << tri.in_circle() << endl;
-                    cout << "Радиус описанной окружности: " << tri.out_circle() << endl;
+                    cout << "Perimeter: " << tri.perimetr() << endl;
+                    cout << "Area: " << tri.area() << endl;
+                    cout << "Inscribed circle radius: " << tri.in_circle() << endl;
+                    cout << "Circumscribed circle radius: " << tri.out_circle() << endl;
                     break;
 
                 default:
-                    cout << "Выход из программы.";
+                    cout << "Exiting program.";
                     exit(3);
                 }
             }
             catch (const exception& a) {
-                cerr << "Ошибка: " << a.what() << endl;
+                cerr << "Error: " << a.what() << endl;
             }
             break;
         case 4:
             system("cls");
-            //Pryam triangle
             cout << "Pryam triangle: " << endl;
-            //
-            //
-            break;
+            try {
+                cout << "Creating right triangle.\n";
+                double leg1, leg2;
+                cout << "Enter two legs (space/enter separated): ";
+                while (!(cin >> leg1 >> leg2) || leg1 <= 0 || leg2 <= 0) {
+                    cout << "Input error. Please enter two positive numbers: ";
+                    cin.clear();
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                }
+
+                Right_Tr<double> tri(leg1, leg2);
+                tri.show();
+                cout << "Perimeter: " << tri.perimetr() << endl;
+                cout << "Area: " << tri.area() << endl;
+                cout << "Inscribed circle radius: " << tri.in_circle() << endl;
+                cout << "Circumscribed circle radius: " << tri.out_circle() << endl;
+
+                cout << "\nDo you want to change sides? (1 - yes, 2 - no, 3 - exit)" << endl;
+                int choise;
+                cin >> choise;
+                switch (choise)
+                {
+                case 1:
+                    system("cls");
+                    cout << "\nChanging sides through menu\n";
+                    tri.change_sides();
+                    cout << "\nFinal triangle state:\n";
+                    tri.show();
+                    cout << "Perimeter: " << tri.perimetr() << endl;
+                    cout << "Area: " << tri.area() << endl;
+                    cout << "Inscribed circle radius: " << tri.in_circle() << endl;
+                    cout << "Circumscribed circle radius: " << tri.out_circle() << endl;
+                    cout << endl;
+                    break;
+
+                case 2:
+                    system("cls");
+                    cout << "\nFinal triangle state:\n";
+                    tri.show();
+                    cout << "Perimeter: " << tri.perimetr() << endl;
+                    cout << "Area: " << tri.area() << endl;
+                    cout << "Inscribed circle radius: " << tri.in_circle() << endl;
+                    cout << "Circumscribed circle radius: " << tri.out_circle() << endl;
+                    cout << endl;
+                    break;
+
+                default:
+                    system("cls");
+                    cout << "Exiting program." << endl;
+                    exit(4);
+                }
+            }
+            catch (const exception& e) {
+               cerr << "Error: " << e.what() << endl;
+           }
+           break;
 
         default:
             system("cls");
-            cout << "Выход из программы.";
+            cout << "Exiting program.";
             exit(5);
         }
     }
