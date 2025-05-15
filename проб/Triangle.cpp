@@ -6,6 +6,33 @@
 #include <thread> 
 using namespace std;
 
+int Get_number()
+{
+    int num;
+    while(!(cin>>num))
+    {
+        cout << "Error: Input digit!\n";
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    }
+    cin.ignore();
+    return num;
+}
+double Get_double() {
+    double num;
+    while (true) {
+        cout << "Input positive number: ";
+        cin >> num;
+        if (cin.good() && num > 0) {
+            cin.ignore();
+            return num;
+        }
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cout << "Error: Input positive number!\n";
+    }
+}
+
 int main()
 {
     setlocale(LC_ALL, "ru");
@@ -19,7 +46,7 @@ int main()
         cout << "4. Pryam triangle" << endl;
         cout << "5. Exit" << endl;
         cout << "Your choice: "; 
-        cin >> choice;
+        choice = Get_number();
         switch (choice)
         {
         case 1:
@@ -27,16 +54,20 @@ int main()
             cout << "Simple triangle: " << endl;
             try
             {
-                cout << "Creating triangle with your parameters:\n";
                 double a, b, c;
+                cout << "Creating triangle with your parameters:\n";
                 cout << "Enter triangle sides (space/enter separated): ";
+                /*double a = Get_double();
+                double b = Get_double();
+                double c = Get_double();
+                */
                 while (!(cin >> a >> b >> c))
                 {
                     cout << "Input error. Please enter three numbers separated by spaces: ";
                     cin.clear();
                     cin.ignore(numeric_limits<streamsize>::max(), '\n');
                 }
-
+            
                 Triangle<double> tri(a, b, c);
                 tri.show();
                 cout << "Perimeter: " << tri.perimetr() << endl;
@@ -44,8 +75,7 @@ int main()
                 cout << "Inscribed circle radius: " << tri.in_circle() << endl;
                 cout << "Circumscribed circle radius: " << tri.out_circle() << endl;
                 cout << "\nDo you want to change sides? (1 - yes, 2 - no, 3 - exit)" << endl;
-                int choise;
-                cin >> choise;
+                int choise = Get_number();
                 switch (choise)
                 {
                 case 1:
@@ -71,10 +101,14 @@ int main()
                     cout << "Circumscribed circle radius: " << tri.out_circle() << endl;
                     cout << endl;
                     break;
+                case 3:
+                    system("cls");
+                    cout << "Exiting program.";
+                    exit(3);
 
                 default:
                     system("cls");
-                    cout << "Exiting program.";
+                    cout << "Incorrect number.";
                     cout << endl;
                     break;
                 }
@@ -89,6 +123,7 @@ int main()
             cout << "Ravnostr triangle: " << endl;
             try {
                 cout << "Creating equilateral triangle.\n";
+                /*double side = Get_double();*/
                 double side;
                 cout << "Enter triangle side length: ";
                 while (!(cin >> side) || side <= 0) {
@@ -104,8 +139,7 @@ int main()
                 cout << "Circumscribed circle radius: " << tri.out_circle() << endl;
 
                 cout << "\nDo you want to change the side? (1 - yes, 2 - no): ";
-                int choice;
-                cin >> choice;
+                int choice = Get_number();
                 if (choice == 1) {
                     tri.change_sides();
                     cout << "\nFinal triangle state:\n";
@@ -129,6 +163,8 @@ int main()
             cout << "Ravnobed triangle: " << endl;
             try {
                 cout << "Creating triangle with your parameters:\n";
+                /*double a = Get_double();
+                double b = Get_double();*/
                 double a, b;
                 cout << "Enter 2 triangle sides (space/enter separated): ";
                 while (!(cin >> a >> b)) 
@@ -145,11 +181,11 @@ int main()
                 cout << "Inscribed circle radius: " << tri.in_circle() << endl;
                 cout << "Circumscribed circle radius: " << tri.out_circle() << endl;
                 cout << "\nDo you want to change sides? (1 - yes, 2 - no, 3 - exit)" << endl;
-                int choise;
-                cin >> choise;
-                switch (choise)
+                int choice = Get_number();
+                switch (choice)
                 {
                 case 1:
+                    system("cls");
                     cout << "\nChanging sides through menu\n";
                     tri.change_sides();
                     cout << "\nFinal triangle state:\n";
@@ -161,6 +197,7 @@ int main()
                     break;
 
                 case 2:
+                    system("cls");
                     cout << "\nFinal triangle state:\n";
                     tri.show();
                     cout << "Perimeter: " << tri.perimetr() << endl;
@@ -168,10 +205,14 @@ int main()
                     cout << "Inscribed circle radius: " << tri.in_circle() << endl;
                     cout << "Circumscribed circle radius: " << tri.out_circle() << endl;
                     break;
-
-                default:
+                case 3:
+                    system("cls");
                     cout << "Exiting program.";
                     exit(3);
+
+                default:
+                    cout << "Incorrect number.";
+                    break;
                 }
             }
             catch (const exception& a) {
@@ -183,8 +224,10 @@ int main()
             cout << "Pryam triangle: " << endl;
             try {
                 cout << "Creating right triangle.\n";
+                cout << "Enter two legs (space/enter separated): ";/*
+                double leg1 = Get_double();
+                double leg2 = Get_double();;*/
                 double leg1, leg2;
-                cout << "Enter two legs (space/enter separated): ";
                 while (!(cin >> leg1 >> leg2) || leg1 <= 0 || leg2 <= 0) {
                     cout << "Input error. Please enter two positive numbers: ";
                     cin.clear();
@@ -197,10 +240,8 @@ int main()
                 cout << "Area: " << tri.area() << endl;
                 cout << "Inscribed circle radius: " << tri.in_circle() << endl;
                 cout << "Circumscribed circle radius: " << tri.out_circle() << endl;
-
                 cout << "\nDo you want to change sides? (1 - yes, 2 - no, 3 - exit)" << endl;
-                int choise;
-                cin >> choise;
+                int choise = Get_number();
                 switch (choise)
                 {
                 case 1:
@@ -226,22 +267,28 @@ int main()
                     cout << "Circumscribed circle radius: " << tri.out_circle() << endl;
                     cout << endl;
                     break;
+                case 3:
+                    system("cls");
+                    cout << "Exiting program.";
+                    exit(3);
 
                 default:
                     system("cls");
-                    cout << "Exiting program." << endl;
-                    exit(4);
+                    cout << "Incorrect number." << endl;
+                    break;
                 }
             }
             catch (const exception& e) {
                cerr << "Error: " << e.what() << endl;
            }
            break;
-
+        case 5 :
+            cout << "Exiting program. \n  ";
+            exit(5);
         default:
             system("cls");
-            cout << "Exiting program.";
-            exit(5);
+            cout << "Incorrect number. \n  ";
+            break;
         }
     }
     
