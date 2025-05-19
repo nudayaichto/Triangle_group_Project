@@ -5,14 +5,14 @@ class Right_Tr : public Triangle<T> {
 public:
     Right_Tr() = default;
 
-    // Конструктор с двумя катетами, гипотенуза вычисляется автоматически
+    // РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ СЃ РґРІСѓРјСЏ РєР°С‚РµС‚Р°РјРё, РіРёРїРѕС‚РµРЅСѓР·Р° РІС‹С‡РёСЃР»СЏРµС‚СЃСЏ Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєРё
     Right_Tr(T leg1, T leg2) : Triangle<T>(leg1, leg2, static_cast<T>(sqrt(leg1* leg1 + leg2 * leg2))) {
         if (!isRightTriangle()) {
             throw invalid_argument("Invalid sides for right triangle");
         }
     }
 
-    // Проверка прямоугольности по теореме Пифагора
+    // РџСЂРѕРІРµСЂРєР° РїСЂСЏРјРѕСѓРіРѕР»СЊРЅРѕСЃС‚Рё РїРѕ С‚РµРѕСЂРµРјРµ РџРёС„Р°РіРѕСЂР°
     bool isRightTriangle() const {
         T A = this->a;
         T B = this->b;
@@ -31,7 +31,7 @@ public:
         return abs(maxSide * maxSide - (side1 * side1 + side2 * side2)) < 1e-10;
     }
 
-    // Меню для изменения сторон
+    // РњРµРЅСЋ РґР»СЏ РёР·РјРµРЅРµРЅРёСЏ СЃС‚РѕСЂРѕРЅ
     void change_sides() {
         int choice;
         T newLeg1, newLeg2;
@@ -41,8 +41,16 @@ public:
                 << "2. Change all sides (a, b, c)\n"
                 << "3. Exit\n"
                 << "Your choice: ";
-            cin >> choice;
-
+            //cin >> choice;
+            if (!(cin >> choice))
+            {
+                cout << "РћС€РёР±РєР°: РІРІРµРґРёС‚Рµ С‡РёСЃР»Рѕ РѕС‚ 1 РґРѕ 5.\n";
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                continue; // РїРѕРІС‚РѕСЂРёС‚СЊ РІРІРѕРґ
+            }
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
             if (choice == 3) break;
 
             try {
@@ -50,6 +58,8 @@ public:
                 case 1:
                     cout << "Enter new values for legs (a and b): ";
                     cin >> newLeg1 >> newLeg2;
+                    cin.clear();
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
                     if (newLeg1 <= 0 || newLeg2 <= 0)
                         throw invalid_argument("Sides must be positive");
                     this->a = newLeg1;
@@ -62,6 +72,8 @@ public:
                     T newA, newB, newC;
                     cout << "Enter new sides (a b c): ";
                     cin >> newA >> newB >> newC;
+                    cin.clear();
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
                     if (newA <= 0 || newB <= 0 || newC <= 0)
                         throw invalid_argument("Sides must be positive");
                     this->a = newA;
@@ -79,32 +91,34 @@ public:
             }
             catch (const invalid_argument& e) {
                 cout << "Error: " << e.what() << endl;
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
             }
         }
     }
 
-    // Периметр
+    // РџРµСЂРёРјРµС‚СЂ
     T perimetr() const {
         if (!isRightTriangle())
             throw invalid_argument("Not a right triangle");
         return this->a + this->b + this->c;
     }
 
-    // Площадь
+    // РџР»РѕС‰Р°РґСЊ
     double area() const {
         if (!isRightTriangle())
             throw invalid_argument("Not a right triangle");
         return 0.5 * this->a * this->b;
     }
 
-    // Радиус вписанной окружности
+    // Р Р°РґРёСѓСЃ РІРїРёСЃР°РЅРЅРѕР№ РѕРєСЂСѓР¶РЅРѕСЃС‚Рё
     double in_circle() const {
         if (!isRightTriangle())
             throw invalid_argument("Not a right triangle");
         return (this->a + this->b - this->c) / 2.0;
     }
 
-    // Радиус описанной окружности
+    // Р Р°РґРёСѓСЃ РѕРїРёСЃР°РЅРЅРѕР№ РѕРєСЂСѓР¶РЅРѕСЃС‚Рё
     double out_circle() const {
         if (!isRightTriangle())
             throw invalid_argument("Not a right triangle");
