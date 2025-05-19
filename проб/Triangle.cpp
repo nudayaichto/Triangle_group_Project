@@ -11,7 +11,7 @@ int Get_number()
     int num;
     while(!(cin>>num))
     {
-        cout << "Error: Input digit!\n";
+        cout << "Ошибка: Вводимая цифра!\n";
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
     }
@@ -19,17 +19,18 @@ int Get_number()
     return num;
 }
 double Get_double() {
-    double num;
+    double input;
     while (true) {
-        cout << "Input positive number: ";
-        cin >> num;
-        if (cin.good() && num > 0) {
+        cin >> input;
+        if (cin.fail()) {
+            system("cls");
+            cout << "Некорректный ввод. Пожалуйста, введите число: ";
+            cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            return num;
         }
-        cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        cout << "Error: Input positive number!\n";
+        else {
+            return input;
+        }
     }
 }
 
@@ -39,75 +40,68 @@ int main()
     int choice;
     while (true)
     {
-        cout << "-------MENU-------" << endl;
-        cout << "1. Simple triangle" << endl;
-        cout << "2. Ravnostr triangle" << endl;
-        cout << "3. Ravnobed triangle" << endl;
-        cout << "4. Pryam triangle" << endl;
-        cout << "5. Exit" << endl;
-        cout << "Your choice: "; 
+        cout << "------- МЕНЮ-------" << endl;
+        cout << "1. Простой треугольник" << endl;
+        cout << "2. Равносторонний треугольник" << endl;
+        cout << "3. Равносторонний треугольник" << endl;
+        cout << "4. Прямой треугольник" << endl;
+        cout << "5. Выход" << endl;
+        cout << "Ваш выбор: ";
         choice = Get_number();
         switch (choice)
         {
         case 1:
             system("cls");
-            cout << "Simple triangle: " << endl;
+            cout << "Простой треугольник: " << endl;
             try
-            {
-                double a, b, c;
-                cout << "Creating triangle with your parameters:\n";
-                cout << "Enter triangle sides (space/enter separated): ";
-                
-                while (!(cin >> a >> b >> c))
-                {
-                    cout << "Input error. Please enter three numbers separated by spaces: ";
-                    cin.clear();
-                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                }
-                cout << "\nThe first three digits are accepted." << endl;
-                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            {               
+                cout << "Создаем треугольник с вашими параметрами:\n";
+                cout << "Введите стороны треугольника (через пробел): ";
+                double a = Get_double();
+                double b = Get_double();
+                double c = Get_double();
             
                 Triangle<double> tri(a, b, c);
                 tri.show();
-                cout << "Perimeter: " << tri.perimetr() << endl;
-                cout << "Area: " << tri.area() << endl;
-                cout << "Inscribed circle radius: " << tri.in_circle() << endl;
-                cout << "Circumscribed circle radius: " << tri.out_circle() << endl;
-                cout << "\nDo you want to change sides? (1 - yes, 2 - no, 3 - exiting programm)" << endl;
+                cout << "Периметр: " << tri.perimetr() << endl;
+                cout << "Площадь: " << tri.area() << endl;
+                cout << "Радиус вписанной окружности: " << tri.in_circle() << endl;
+                cout << "Описанный радиус окружности: " << tri.out_circle() << endl;
+                cout << "\nВы хотите изменить сторону? ((1 - да, 2 - нет, 3 - выход)" << endl;
                 int choise = Get_number();
                 switch (choise)
                 {
                 case 1:
                     system("cls");
-                    cout << "\nChanging sides through menu\n";
+                    cout << "\nПереключение сторон через меню\n";
                     tri.change_sides();
-                    cout << "\nFinal triangle state:\n";
+                    cout << "\nКонечное состояние треугольника:\n";
                     tri.show();
-                    cout << "Perimeter: " << tri.perimetr() << endl;
-                    cout << "Area: " << tri.area() << endl;
-                    cout << "Inscribed circle radius: " << tri.in_circle() << endl;
-                    cout << "Circumscribed circle radius: " << tri.out_circle() << endl;
+                    cout << "Периметр: " << tri.perimetr() << endl;
+                    cout << "Площадь: " << tri.area() << endl;
+                    cout << "Радиус вписанной окружности: " << tri.in_circle() << endl;
+                    cout << "Описанный радиус окружности: " << tri.out_circle() << endl;
                     cout << endl;
                     break;
 
                 case 2:
                     system("cls");
-                    cout << "\nFinal triangle state:\n";
+                    cout << "\nКонечное состояние треугольника:\n";
                     tri.show();
-                    cout << "Perimeter: " << tri.perimetr() << endl;
-                    cout << "Area: " << tri.area() << endl;
-                    cout << "Inscribed circle radius: " << tri.in_circle() << endl;
-                    cout << "Circumscribed circle radius: " << tri.out_circle() << endl;
+                    cout << "Периметр: " << tri.perimetr() << endl;
+                    cout << "Площадь: " << tri.area() << endl;
+                    cout << "Радиус вписанной окружности: " << tri.in_circle() << endl;
+                    cout << "Описанный радиус окружности: " << tri.out_circle() << endl;
                     cout << endl;
                     break;
                 case 3:
                     system("cls");
-                    cout << "Exiting program.";
+                    cout << "Существующая программа.";
                     exit(3);
 
                 default:
                     system("cls");
-                    cout << "Incorrect number.";
+                    cout << "Неверный номер.";
                     cout << endl;
                     break;
                 }
