@@ -1,4 +1,5 @@
 #pragma once  //Annya
+#include <limits>
 template <class T>
 class Ravnobed_Tr : public Triangle<T> {
 public:
@@ -18,59 +19,75 @@ public:
         int choice;
         T newSide, newSide1, newSide2;
         while (true) {
-            cout << "\nМеню:\n"
-                << "1. Измените равные стороны (a и c)\n"
-                << "2. Измените сторону b\n"
-                << "3. Меняйте все стороны\n"
-                << "4. Выход\n"
-                << "Ваш выбор: ";
-            cin >> choice;
-
+            cout << "\nMenu):\n"
+                << "1. Changed sides (a и c)\n"
+                << "2. Changed b\n"
+                << "3. Changed all\n"
+                << "4. Exit\n"
+                << "Your choise: ";
+            //cin >> choice;
+            if (!(cin >> choice))
+            {
+                cout << "Ошибка: введите число от 1 до 5.\n";
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                continue; // повторить ввод
+            }
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
             if (choice == 4) break;
 
             try {
                 switch (choice) {
                 case 1:
-                    cout << "Введите новое значение для равных сторон (a и c): ";
+                    cout << "Input new sides (a и c): ";
                     cin >> newSide;
+                    cin.clear();
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
                     this->set_a(newSide);
                     this->set_c(newSide);
-                    if (!isIsosceles()) throw invalid_argument("Это больше не равнобедренный треугольник");
+                    if (!isIsosceles()) throw invalid_argument("Not ravnobedr");
                     break;
                 case 2:
-                    cout << "Введите новое значение для стороны b: ";
+                    cout << "Input new b: ";
                     cin >> newSide;
+                    cin.clear();
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
                     this->set_b(newSide);
-                    if (!isIsosceles()) throw invalid_argument("Это больше не равнобедренный треугольник");
+                    if (!isIsosceles()) throw invalid_argument("Not ravnobedr");
                     break;
                 case 3:
-                    cout << "Введите новые стороны (a, b, c): ";
+                    cout << "Input new sides (a, b, c): ";
                     cin >> newSide1 >> newSide2 >> newSide;
+                    cin.clear();
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
                     this->set_a(newSide1);
                     this->set_b(newSide2);
                     this->set_c(newSide);
-                    if (!isIsosceles()) throw invalid_argument("Это больше не равнобедренный треугольник");
+                    if (!isIsosceles()) throw invalid_argument("Not ravnobedr");
                     break;
                 default:
-                    cout << "Неверный выбор\n";
+                    cout << "incorrect numb\n";
                     continue;
                 }
-                cout << "\nТекущие стороны: \n";
+                cout << "\nCurrent sides: \n";
                 this->show();
             }
             catch (const invalid_argument& e) {
-                cout << "Ошибка: " << e.what() << endl;
+                cout << "Error: " << e.what() << endl;
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
             }
         }
     }
 
     T perimetr() const {
-        if (!isIsosceles()) throw invalid_argument("Это больше не равнобедренный треугольник");
+        if (!isIsosceles()) throw invalid_argument("Not ravnobedr");
         return this->a + this->b + this->c;
     }
 
     double area() const {
-        if (!isIsosceles()) throw invalid_argument("Это больше не равнобедренный треугольник");
+        if (!isIsosceles()) throw invalid_argument("Not ravnobedr");
         double p = static_cast<double>(perimetr()) / 2.0;
         double val = p * (p - this->a) * (p - this->b) * (p - this->c);
         if (val <= 0) return 0;
@@ -78,14 +95,14 @@ public:
     }
 
     double in_circle() const {
-        if (!isIsosceles()) throw invalid_argument("Это больше не равнобедренный треугольник");
+        if (!isIsosceles()) throw invalid_argument("Not ravnobedr");
         double S = area();
         if (S == 0) return 0;
         return 2.0 * S / static_cast<double>(perimetr());
     }
 
     double out_circle() const {
-        if (!isIsosceles()) throw invalid_argument("Это больше не равнобедренный треугольник");
+        if (!isIsosceles()) throw invalid_argument("Not ravnobedr");
         double S = area();
         if (S == 0) return 0;
         return (static_cast<double>(this->a) * this->b * this->c) / (4.0 * S);
