@@ -13,14 +13,14 @@ public:
     Triangle() : a(1), b(1), c(1)
     {
         if (!isValid())
-            throw invalid_argument("Неверные аргументы треугольника");
+            throw invalid_argument("РќРµРІРµСЂРЅС‹Рµ Р°СЂРіСѓРјРµРЅС‚С‹ С‚СЂРµСѓРіРѕР»СЊРЅРёРєР°");
         if (!isComman())
-            throw invalid_argument("Неверные аргументы треугольника");
+            throw invalid_argument("РќРµРІРµСЂРЅС‹Рµ Р°СЂРіСѓРјРµРЅС‚С‹ С‚СЂРµСѓРіРѕР»СЊРЅРёРєР°");
     }
     Triangle(T A, T B, T C) : a(A), b(B), c(C)
     {
-        if (!isValid()) throw invalid_argument("Неверные аргументы треугольника");
-        if (!isComman()) throw invalid_argument("Неверные аргументы треугольника");
+        if (!isValid()) throw invalid_argument("РќРµРІРµСЂРЅС‹Рµ Р°СЂРіСѓРјРµРЅС‚С‹ С‚СЂРµСѓРіРѕР»СЊРЅРёРєР°");
+        if (!isComman()) throw invalid_argument("РќРµРІРµСЂРЅС‹Рµ Р°СЂРіСѓРјРµРЅС‚С‹ С‚СЂРµСѓРіРѕР»СЊРЅРёРєР°");
     }
     ~Triangle() = default;
     bool isValid() const
@@ -37,19 +37,19 @@ public:
     {
         a = A;
         if (!isValid())
-            throw invalid_argument("Недопустимое значение для стороны a");
+            throw invalid_argument("РќРµРґРѕРїСѓСЃС‚РёРјРѕРµ Р·РЅР°С‡РµРЅРёРµ РґР»СЏ СЃС‚РѕСЂРѕРЅС‹ a");
     }
     void set_b(T B)
     {
         b = B;
         if (!isValid())
-            throw invalid_argument("Недопустимое значение для стороны b");
+            throw invalid_argument("РќРµРґРѕРїСѓСЃС‚РёРјРѕРµ Р·РЅР°С‡РµРЅРёРµ РґР»СЏ СЃС‚РѕСЂРѕРЅС‹ b");
     }
     void set_c(T C)
     {
         c = C;
         if (!isValid())
-            throw invalid_argument("Недопустимое значение для стороны c");
+            throw invalid_argument("РќРµРґРѕРїСѓСЃС‚РёРјРѕРµ Р·РЅР°С‡РµРЅРёРµ РґР»СЏ СЃС‚РѕСЂРѕРЅС‹ c");
     }
     void set_sides(T A, T B, T C)
     {
@@ -57,7 +57,7 @@ public:
         b = B;
         c = C;
         if (!isValid())
-            throw invalid_argument("Недопустимые значения для всех сторон");
+            throw invalid_argument("РќРµРґРѕРїСѓСЃС‚РёРјС‹Рµ Р·РЅР°С‡РµРЅРёСЏ РґР»СЏ РІСЃРµС… СЃС‚РѕСЂРѕРЅ");
     }
 
     T get_a() const { return a; }
@@ -65,60 +65,74 @@ public:
     T get_c() const { return c; }
 
     void show() const {
-        cout << "Длина сторон: a = " << a << ", b = " << b << ", c = " << c << endl;
+        cout << "Р”Р»РёРЅР° СЃС‚РѕСЂРѕРЅ: a = " << a << ", b = " << b << ", c = " << c << endl;
     }
 
     void change_sides() {
         int choice;
         T newSide, newSide1, newSide2, newSide3;
         while (true) {
-            cout << "\nМеню:\n"
-                << "1. Изменить сторону a\n"
-                << "2. Изменить сторону b\n"
-                << "3. Сменить сторону c\n"
-                << "4. Меняйте все стороны \n"
-                << "5. Выход\n"
-                << "Выберите опцию: ";
-            cin >> choice;
+            cout << "\nРњРµРЅСЋ:\n"
+                << "1. РР·РјРµРЅРёС‚СЊ СЃС‚РѕСЂРѕРЅСѓ a\n"
+                << "2. РР·РјРµРЅРёС‚СЊ СЃС‚РѕСЂРѕРЅСѓ b\n"
+                << "3. РЎРјРµРЅРёС‚СЊ СЃС‚РѕСЂРѕРЅСѓ c\n"
+                << "4. РњРµРЅСЏР№С‚Рµ РІСЃРµ СЃС‚РѕСЂРѕРЅС‹ \n"
+                << "5. Р’С‹С…РѕРґ\n"
+                << "Р’С‹Р±РµСЂРёС‚Рµ РѕРїС†РёСЋ: ";
+            
+            if (!(cin >> choice)) 
+            {  
+                cout << "РћС€РёР±РєР°: РІРІРµРґРёС‚Рµ С‡РёСЃР»Рѕ РѕС‚ 1 РґРѕ 5.\n";
+                cin.clear(); 
+                cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
+                continue; // РїРѕРІС‚РѕСЂРёС‚СЊ РІРІРѕРґ
+            }
 
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
             if (choice == 5) break;
 
             try {
                 switch (choice) {
                 case 1:
-                    cout << "Введите новое значение для a: ";
+                    cout << "Р’РІРµРґРёС‚Рµ РЅРѕРІРѕРµ Р·РЅР°С‡РµРЅРёРµ РґР»СЏ a: ";
                     cin >> newSide;
+                    if (cin.fail()) {
+                        cout << "РћС€РёР±РєР°: РІРІРµРґРёС‚Рµ С‡РёСЃР»Рѕ Р·Р°РЅРѕРІРѕ!\n";
+                        cin.clear();
+                        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                        continue;
+                    }
                     cin.ignore(numeric_limits<streamsize>::max(), '\n');
                     set_a(newSide);
                     break;
                 case 2:
-                    cout << "Введите новое значение для b: ";
+                    cout << "Р’РІРµРґРёС‚Рµ РЅРѕРІРѕРµ Р·РЅР°С‡РµРЅРёРµ РґР»СЏ b: ";
                     cin >> newSide;
                     cin.ignore(numeric_limits<streamsize>::max(), '\n');
                     set_b(newSide);
                     break;
                 case 3:
-                    cout << "Введите новое значение для c: ";
+                    cout << "Р’РІРµРґРёС‚Рµ РЅРѕРІРѕРµ Р·РЅР°С‡РµРЅРёРµ РґР»СЏ c: ";
                     cin >> newSide;
                     cin.ignore(numeric_limits<streamsize>::max(), '\n');
                     set_c(newSide);
                     break;
                 case 4:
                     cin.ignore();
-                    cout << "Введите новые значения (через пробел/ввод): ";
+                    cout << "Р’РІРµРґРёС‚Рµ РЅРѕРІС‹Рµ Р·РЅР°С‡РµРЅРёСЏ (С‡РµСЂРµР· РїСЂРѕР±РµР»/РІРІРѕРґ): ";
                     cin >> newSide1 >> newSide2 >> newSide3;
                     cin.ignore(numeric_limits<streamsize>::max(), '\n');
                     set_sides(newSide1, newSide2, newSide3);
                     break;
                 default:
-                    cout << "Существующая программа\n";
+                    cout << "РЎСѓС‰РµСЃС‚РІСѓСЋС‰Р°СЏ РїСЂРѕРіСЂР°РјРјР°\n";
                     continue;
                 }
-                cout << "\nТекущие значения: \n";
+                cout << "\nРўРµРєСѓС‰РёРµ Р·РЅР°С‡РµРЅРёСЏ: \n";
                 show();
             }
             catch (const invalid_argument& e) {
-                cout << "Ошибка: " << e.what() << std::endl;
+                cout << "РћС€РёР±РєР°: " << e.what() << std::endl;
                 cin.ignore(numeric_limits<streamsize>::max(), '\n');
             }
         }
