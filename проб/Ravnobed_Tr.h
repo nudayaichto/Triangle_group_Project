@@ -6,7 +6,7 @@ public:
     Ravnobed_Tr() = default;
     Ravnobed_Tr(T sideA, T sideB) : Triangle<T>(sideA, sideB, sideA) {
         if (!isIsosceles()) {
-            throw invalid_argument("Invalid sides for isosceles triangle");
+            throw invalid_argument("Недопустимые стороны равнобедренного треугольника");
         }
     }
 
