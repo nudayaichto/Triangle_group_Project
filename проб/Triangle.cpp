@@ -24,7 +24,7 @@ double Get_double() {
         cout << "Input positive number: ";
         cin >> num;
         if (cin.good() && num > 0) {
-            cin.ignore();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
             return num;
         }
         cin.clear();
@@ -57,16 +57,15 @@ int main()
                 double a, b, c;
                 cout << "Creating triangle with your parameters:\n";
                 cout << "Enter triangle sides (space/enter separated): ";
-                /*double a = Get_double();
-                double b = Get_double();
-                double c = Get_double();
-                */
+                
                 while (!(cin >> a >> b >> c))
                 {
                     cout << "Input error. Please enter three numbers separated by spaces: ";
                     cin.clear();
                     cin.ignore(numeric_limits<streamsize>::max(), '\n');
                 }
+                cout << "\nThe first three digits are accepted." << endl;
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
             
                 Triangle<double> tri(a, b, c);
                 tri.show();
@@ -74,7 +73,7 @@ int main()
                 cout << "Area: " << tri.area() << endl;
                 cout << "Inscribed circle radius: " << tri.in_circle() << endl;
                 cout << "Circumscribed circle radius: " << tri.out_circle() << endl;
-                cout << "\nDo you want to change sides? (1 - yes, 2 - no, 3 - exit)" << endl;
+                cout << "\nDo you want to change sides? (1 - yes, 2 - no, 3 - exiting programm)" << endl;
                 int choise = Get_number();
                 switch (choise)
                 {
@@ -123,13 +122,15 @@ int main()
             cout << "Ravnostr triangle: " << endl;
             try {
                 cout << "Creating equilateral triangle.\n";
-                /*double side = Get_double();*/
+
                 double side;
                 cout << "Enter triangle side length: ";
                 while (!(cin >> side) || side <= 0) {
                     cout << "Input error. Please enter a positive number: ";
                     cin.clear();
                 }
+                cout << "\nThe first digit is accepted. \n";
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
                 Ravnostor_Tr<double> tri(side);
                 tri.show();
@@ -138,7 +139,7 @@ int main()
                 cout << "Inscribed circle radius: " << tri.in_circle() << endl;
                 cout << "Circumscribed circle radius: " << tri.out_circle() << endl;
 
-                cout << "\nDo you want to change the side? (1 - yes, 2 - no): ";
+                cout << "\nDo you want to change the side? (1 - yes, 2 - no(to menu), 3 - exiting programm): ";
                 int choice = Get_number();
                 if (choice == 1) {
                     tri.change_sides();
@@ -150,8 +151,9 @@ int main()
                     cout << "Circumscribed circle radius: " << tri.out_circle() << endl;
                     cout << endl;
                 }
-                else {
+                else if(choice == 3) {
                     cout << "Exiting program.\n";
+                    exit(3);
                 }
             }
             catch (const exception& e) {
@@ -163,8 +165,7 @@ int main()
             cout << "Ravnobed triangle: " << endl;
             try {
                 cout << "Creating triangle with your parameters:\n";
-                /*double a = Get_double();
-                double b = Get_double();*/
+              
                 double a, b;
                 cout << "Enter 2 triangle sides (space/enter separated): ";
                 while (!(cin >> a >> b)) 
@@ -173,6 +174,8 @@ int main()
                     cin.clear();
                     cin.ignore(numeric_limits<streamsize>::max(), '\n');
                 }
+                cout << "\nThe first two digits are accepted. \n";
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
                 Ravnobed_Tr<double> tri(a, b);
                 tri.show();
@@ -180,7 +183,7 @@ int main()
                 cout << "Area: " << tri.area() << endl;
                 cout << "Inscribed circle radius: " << tri.in_circle() << endl;
                 cout << "Circumscribed circle radius: " << tri.out_circle() << endl;
-                cout << "\nDo you want to change sides? (1 - yes, 2 - no, 3 - exit)" << endl;
+                cout << "\nDo you want to change sides? (1 - yes, 2 - no(to menu), 3 - exiting programm)" << endl;
                 int choice = Get_number();
                 switch (choice)
                 {
@@ -224,15 +227,16 @@ int main()
             cout << "Pryam triangle: " << endl;
             try {
                 cout << "Creating right triangle.\n";
-                cout << "Enter two legs (space/enter separated): ";/*
-                double leg1 = Get_double();
-                double leg2 = Get_double();;*/
+                cout << "Enter two legs (space/enter separated): ";
+
                 double leg1, leg2;
                 while (!(cin >> leg1 >> leg2) || leg1 <= 0 || leg2 <= 0) {
                     cout << "Input error. Please enter two positive numbers: ";
                     cin.clear();
                     cin.ignore(numeric_limits<streamsize>::max(), '\n');
                 }
+                cout << "\nThe first two digits are accepted. \n";
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
                 Right_Tr<double> tri(leg1, leg2);
                 tri.show();
