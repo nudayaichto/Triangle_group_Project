@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <cmath>
+#include <limits>
 using namespace std;
 
 template <class T>
@@ -94,22 +95,26 @@ public:
                 case 1:
                     cout << "Enter new value for a: ";
                     cin >> newSide;
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
                     set_a(newSide);
                     break;
                 case 2:
                     cout << "Enter new value for b: ";
                     cin >> newSide;
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
                     set_b(newSide);
                     break;
                 case 3:
                     cout << "Enter new value for c: ";
                     cin >> newSide;
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
                     set_c(newSide);
                     break;
                 case 4:
                     cin.ignore();
                     cout << "Enter new values (space/enter separated): ";
                     cin >> newSide1 >> newSide2 >> newSide3;
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
                     set_sides(newSide1, newSide2, newSide3);
                     break;
                 default:
@@ -121,6 +126,7 @@ public:
             }
             catch (const invalid_argument& e) {
                 cout << "Error: " << e.what() << std::endl;
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
             }
         }
     }
