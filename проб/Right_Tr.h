@@ -41,44 +41,51 @@ public:
                 << "2. Change all sides (a, b, c)\n"
                 << "3. Exit\n"
                 << "Your choice: ";
-            //cin >> choice;
             if (!(cin >> choice))
             {
                 cout << "Ошибка: введите число от 1 до 5.\n";
                 cin.clear();
                 cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                continue; // повторить ввод
+                continue;
             }
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
             if (choice == 3) break;
-
             try {
                 switch (choice) {
                 case 1:
                     cout << "Enter new values for legs (a and b): ";
-                    cin >> newLeg1 >> newLeg2;
-                    cin.clear();
-                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                    if (!(cin >> newLeg1 >> newLeg2))
+                    {
+                        cout << "Ошибка: введите число.\n";
+                        cin.clear();
+                        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                        continue; // повторить ввод
+                    }
                     if (newLeg1 <= 0 || newLeg2 <= 0)
                         throw invalid_argument("Sides must be positive");
-                    this->a = newLeg1;
-                    this->b = newLeg2;
-                    this->c = static_cast<T>(sqrt(newLeg1 * newLeg1 + newLeg2 * newLeg2));
+                    this->set_a(newLeg1);
+                    this->set_b(newLeg2);
+                    this->set_c(static_cast<T>(sqrt(newLeg1 * newLeg1 + newLeg2 * newLeg2)));
                     if (!isRightTriangle())
                         throw invalid_argument("Sides do not form a right triangle");
                     break;
+
                 case 2:
                     T newA, newB, newC;
                     cout << "Enter new sides (a b c): ";
-                    cin >> newA >> newB >> newC;
+                    if (!(cin >> newA >> newB >> newC))
+                    {
+                        cout << "Ошибка: введите число.\n";
+                        cin.clear();
+                        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                        continue; // повторить ввод
+                    }
                     cin.clear();
                     cin.ignore(numeric_limits<streamsize>::max(), '\n');
                     if (newA <= 0 || newB <= 0 || newC <= 0)
                         throw invalid_argument("Sides must be positive");
-                    this->a = newA;
-                    this->b = newB;
-                    this->c = newC;
+                    this->set_a(newA);
+                    this->set_b(newB);
+                    this->set_c(newC);
                     if (!isRightTriangle())
                         throw invalid_argument("Sides do not form a right triangle");
                     break;
@@ -91,8 +98,6 @@ public:
             }
             catch (const invalid_argument& e) {
                 cout << "Error: " << e.what() << endl;
-                cin.clear();
-                cin.ignore(numeric_limits<streamsize>::max(), '\n');
             }
         }
     }
