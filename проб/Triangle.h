@@ -109,10 +109,10 @@ public:
                 << "Select option: ";
             if (!(cin >> choice))
             {
-                cout << "Ошибка: введите число от 1 до 5.\n";
+                cout << "������: ������� ����� �� 1 �� 5.\n";
                 cin.clear();
                 cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                continue; // повторить ввод
+                continue; // ��������� ����
             }
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
@@ -131,10 +131,10 @@ public:
                    
                     if (!(cin >> newSide))
                     {
-                        cout << "Ошибка: введите число.\n";
+                        cout << "������: ������� �����.\n";
                         cin.clear();
                         cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                        continue; // повторить ввод
+                        continue; // ��������� ����
                     }
                     cin.ignore(numeric_limits<streamsize>::max(), '\n');
                     set_a(newSide);
@@ -144,10 +144,10 @@ public:
                     cout << "Enter new value for b: ";
                     if (!(cin >> newSide))
                     {
-                        cout << "Ошибка: введите число.\n";
+                        cout << "������: ������� �����.\n";
                         cin.clear();
                         cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                        continue; // повторить ввод
+                        continue; // ��������� ����
                     }
                     cin.ignore(numeric_limits<streamsize>::max(), '\n');
                     set_b(newSide);
@@ -157,10 +157,10 @@ public:
                     cout << "Enter new value for c: ";
                     if (!(cin >> newSide))
                     {
-                        cout << "Ошибка: введите число.\n";
+                        cout << "������: ������� �����.\n";
                         cin.clear();
                         cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                        continue; // повторить ввод
+                        continue; // ��������� ����
                     }                   
                     set_c(newSide);
                     break;
@@ -168,10 +168,10 @@ public:
                     cout << "Enter new values (space/enter separated): ";
                     if (!(cin >> newSide1 >> newSide2 >> newSide3))
                     {
-                        cout << "Ошибка: введите число.\n";
+                        cout << "������: ������� �����.\n";
                         cin.clear();
                         cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                        continue; // повторить ввод
+                        continue; // ��������� ����
                     }                    
                     set_sides(newSide1, newSide2, newSide3);
                     break;
