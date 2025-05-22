@@ -90,4 +90,23 @@ public:
             }
         }
     }
+    //T perimetr(T qwe) const {
+    //    return this->a + this->b + this->c;
+    //}
+    //double area(T qwe) const {
+    //    double p = static_cast<double>(perimetr()) / 2.0;
+    //    double val = p * (p - this->a) * (p - this->b) * (p - this->c);
+    //    if (val <= 0) return 0;
+    //    return sqrt(val);
+    //}
+    //double in_circle(T qwe) {
+    //    double S = area(1);
+    //    if (S == 0) return 0;
+    //    return 2.0 * S / static_cast<double>(perimetr());
+    //}
+    //double out_circle(T qwe) {
+    //    double S = area(1);
+    //    if (S == 0) return 0;
+    //    return (static_cast<double>(this->a) * this->b * this->c) / (4.0 * S);
+    //}
 };
