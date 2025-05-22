@@ -1,9 +1,9 @@
 #include "Triangle.h" // Olya
 #include "Ravnostor_Tr.h" //Kira
-#include "Ravnobed_Tr.h" //Annya
-#include "Right_Tr.h" //Yliana
+#include "Ravnobed_Tr.h" // Annya
+#include "Right_Tr.h" // Yliana
 #include <iostream>
-#include <thread> 
+#include <thread>
 using namespace std;
 
 int Get_number()
@@ -18,21 +18,6 @@ int Get_number()
     cin.ignore();
     return num;
 }
-//double Get_double() {
-//    double input;
-//    while (true) {
-//        cin >> input;
-//        if (cin.fail()) {
-//            system("cls");
-//            cout << "Invalid input. Please enter a number: ";
-//            cin.clear();
-//            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-//        }
-//        else {
-//            return input;
-//        }
-//    }
-//}
 
 int main()
 {
@@ -47,7 +32,6 @@ int main()
         cout << "4. Right Triangle" << endl;
         cout << "5. Exit" << endl;
         cout << "Your choice: ";
-        //по умолчанию треугольник
         choice = Get_number();
         switch (choice)
         {
@@ -60,7 +44,7 @@ int main()
                 cout << "Creating a triangle with your parameters:\n";
                 cout << "Enter the sides of the triangle (separated by spaces): ";
                 double a, b, c;
-                while (true) 
+                while (true)
                 {
                     if (cin >> a >> b >> c) {
                         if (a > 0 && b > 0 && c > 0) {
@@ -73,10 +57,10 @@ int main()
                     else {
                         cout << "Incorrect input. Input three digits: ";
                         cin.clear();
-                        cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
+                        cin.ignore(numeric_limits<streamsize>::max(), '\n');
                     }
                 }
-                cout << "\nThe first three digits are accsepted.\n";
+                cout << "\nThe first three digits are accepted.\n";
                 cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
                 Triangle<double> tri(a, b, c);
@@ -101,7 +85,6 @@ int main()
                     cout << "Circumscribed circle radius: " << tri.out_circle() << endl;
                     cout << endl;
                     break;
-
                 case 2:
                     system("cls");
                     cout << "\nFinal state of the triangle:\n";
@@ -135,37 +118,44 @@ int main()
             try {
                 cout << "Creating a triangle with your parameters.\n";
                 double side;
-                cout << "Enter the side length of the triangle: ";
+                cout << "Enter side length: ";
                 while (!(cin >> side) || side <= 0) {
-                    cout << "Invalid input. Please enter a positive number: ";
+                    cout << "Invalid input. Please enter positive number: ";
                     cin.clear();
                     cin.ignore(numeric_limits<streamsize>::max(), '\n');
                 }
-                cout << "\nFirst entered number accepted.\n";
                 cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
-                Ravnostor_Tr<double> tri(side);
-                tri.show();
-                cout << "Perimeter: " << tri.perimetr() << endl;
-                cout << "Area: " << tri.area() << endl;
-                cout << "Inscribed circle radius: " << tri.in_circle() << endl;
-                cout << "Circumscribed circle radius: " << tri.out_circle() << endl;
+                //Ravnostor_Tr<double> tri(side);
 
-                cout << "\nDo you want to change the side? (1 - yes, 2 - no, 3 - exit): ";
+                Ravnostor_Tr<double> tri;
+                tri.set_side(side);
+                tri.show();
+                cout << "Perimeter: " << tri.perimetr(side) << endl;
+                cout << "Area: " << tri.area(side) << endl;
+                cout << "Inscribed circle radius: " << tri.in_circle(side) << endl;
+                cout << "Circumscribed circle radius: " << tri.out_circle(side) << endl;
+
+                cout << "\nChange side? (1 - yes, 2 - no, 3 - exit): ";
                 int choice = Get_number();
-                if (choice == 1) {
-                    tri.change_sides();
-                    cout << "\nFinal state of the triangle:\n";
+                switch (choice) {
+                case 1: {
+                    tri.change_sides(side);
+                    cout << "\nUpdated triangle:\n";
                     tri.show();
-                    cout << "Perimeter: " << tri.perimetr() << endl;
-                    cout << "Area: " << tri.area() << endl;
-                    cout << "Inscribed circle radius: " << tri.in_circle() << endl;
-                    cout << "Circumscribed circle radius: " << tri.out_circle() << endl;
-                    cout << endl;
+                    cout << "Perimeter: " << tri.perimetr(side) << endl;
+                    cout << "Area: " << tri.area(side) << endl;
+                    cout << "Inscribed circle radius: " << tri.in_circle(side) << endl;
+                    cout << "Circumscribed circle radius: " << tri.out_circle(side) << endl;
+                    break;
                 }
-                else if (choice == 3) {
+                case 2:
+                    break;
+                case 3:
                     cout << "Exiting program.\n";
-                    exit(3);
+                    exit(0);
+                default:
+                    cout << "Invalid choice.\n";
                 }
             }
             catch (const exception& e) {
@@ -180,9 +170,9 @@ int main()
 
                 double a, b;
                 cout << "Enter 2 sides of the triangle (space/enter separated): ";
-                while (!(cin >> a >> b))
+                while (!(cin >> a >> b) || a <= 0 || b <= 0)
                 {
-                    cout << "Input error. Please enter two sides: ";
+                    cout << "Input error. Please enter two positive numbers: ";
                     cin.clear();
                     cin.ignore(numeric_limits<streamsize>::max(), '\n');
                 }
@@ -235,7 +225,7 @@ int main()
                 cerr << "Error: " << e.what() << endl;
             }
             break;
-        
+
         case 4:
             system("cls");
             cout << "Right triangle: " << endl;
@@ -249,42 +239,41 @@ int main()
                     cin.clear();
                     cin.ignore(numeric_limits<streamsize>::max(), '\n');
                 }
-                cout << "\nfirst two digits are accsepted. \n";
+                cout << "\nFirst two entered sides accepted.\n";
                 cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
                 Right_Tr<double> tri(leg1, leg2);
                 tri.show();
-                cout << "Perimeter: " << tri.perimetr() << endl;
-                cout << "Area: " << tri.area() << endl;
-                cout << "Inscribed circle radius: " << tri.in_circle() << endl;
-                cout << "Circumscribed circle radius: " << tri.out_circle() << endl;
+                cout << "Perimeter: " << tri.perimetr(1) << endl;
+                cout << "Area: " << tri.area(1) << endl;
+                cout << "Inscribed circle radius: " << tri.in_circle(1) << endl;
+                cout << "Circumscribed circle radius: " << tri.out_circle(1) << endl;
                 cout << "\nDo you want to change a side? (1 - yes, 2 - no, 3 - exit):" << endl;
-                int choise = Get_number();
-                switch (choise)
+                int choice = Get_number();
+                switch (choice)
                 {
                 case 1:
                     system("cls");
-                    //cout << "\nChanging sides through menu\n";
-                    tri.change_sides();
-                    cout << "\nFinal state of the triangle:\n";
+                    tri.change_sides(1, 1);
+                    cout << "\nFinal state of the triangle\n";
                     tri.show();
-                    cout << "Perimeter: " << tri.perimetr() << endl;
-                    cout << "Area: " << tri.area() << endl;
-                    cout << "Inscribed circle radius: " << tri.in_circle() << endl;
-                    cout << "Circumscribed circle radius: " << tri.out_circle() << endl;
-                    cout << endl;
+                    cout << "Perimeter: " << tri.perimetr(1) << endl;
+                    cout << "Area: " << tri.area(1) << endl;
+                    cout << "Inscribed circle radius: " << tri.in_circle(1) << endl;
+                    cout << "Circumscribed circle radius: " << tri.out_circle(1) << endl;
                     break;
 
                 case 2:
                     system("cls");
                     cout << "\nFinal state of the triangle:\n";
                     tri.show();
-                    cout << "Perimeter: " << tri.perimetr() << endl;
-                    cout << "Area: " << tri.area() << endl;
-                    cout << "Inscribed circle radius: " << tri.in_circle() << endl;
-                    cout << "Circumscribed circle radius: " << tri.out_circle() << endl;
+                    cout << "Perimeter: " << tri.perimetr(1) << endl;
+                    cout << "Area: " << tri.area(1) << endl;
+                    cout << "Inscribed circle radius: " << tri.in_circle(1) << endl;
+                    cout << "Circumscribed circle radius: " << tri.out_circle(1) << endl;
                     cout << endl;
                     break;
+
                 case 3:
                     system("cls");
                     cout << "Exiting program.";
@@ -301,7 +290,6 @@ int main()
             }
             break;
 
-
         case 5:
             cout << "Exiting program.\n";
             exit(5);
@@ -313,4 +301,3 @@ int main()
     }
 
     return 0;
-}
