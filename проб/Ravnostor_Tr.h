@@ -1,74 +1,95 @@
-#pragma once //KIRA
+#pragma once
+#include <cmath>
 template <class T>
 class Ravnostor_Tr : public Triangle<T> {
 public:
-    Ravnostor_Tr() = default;
+    /*Ravnostor_Tr() : Triangle<T>() {}
 
     Ravnostor_Tr(T side) : Triangle<T>(side, side, side) {
         if (side <= 0) {
-            throw invalid_argument("Side must be positive. ");
+            throw invalid_argument("Side must be positive");
         }
+    }*/
+    void set_side(T side) {
+        if (side <= 0) {
+            throw invalid_argument("Side must be positive");
+        }
+        this->set_sides(side, side, side);
     }
 
-    // Меню для изменения стороны равностороннего треугольника
-    void change_sides() {
-        int choice;
-        T newSide;
-        while (true) {
-            cout << "\nMenu):\n"
-                << "1. Change side (all sides will be equal)\n"
-                << "2. Exit menu\n"
-                << "Select option: ";
+    bool isEquilateral() const {
+        return (this->a == this->b) && (this->b == this->c);
+    }
 
-            if (!(cin >> choice))
-            {
-                cout << "Ошибка: введите число.\n";
+    void change_sides( T side) {
+        int choice;
+        T newSide = this->a;  
+        while (true) {
+            cout << "\nMenu:\n"
+                << "0. Reset to default sides (1,1,1)\n"
+                << "1. Change all sides\n"
+                << "2. Exit\n"
+                << "Your choice: ";
+
+            if (!(cin >> choice)) {
+                cout << "Error: please enter a number from 0 to 2.\n";
                 cin.clear();
                 cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                continue; // повторить ввод
+                continue;
             }
+
             if (choice == 2) break;
-            if (choice == 1) {
-                cout << "Enter new side value: ";
-                cin >> newSide;
-                if (cin.fail() || newSide <= 0) {
-                    cout << "Error: side must be a positive number.\n";
-                    cin.clear();
+
+            try {
+                switch (choice) {
+                case 0: {
+                    this->set_sides(1, 1, 1);
+                    break;
+                }
+                case 1:
+                    cout << "Input new side (all sides equal): ";
+                    cin >> newSide;
+                    if (cin.fail() || newSide <= 0) {
+                        cin.clear();
+                        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                        throw invalid_argument("Side must be positive");
+                    }
                     cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                    this->set_side(newSide);
+                    break;
+                default:
+                    cout << "Incorrect number\n";
                     continue;
                 }
-                cin.ignore(numeric_limits<streamsize>::max(), '\n');
-
-                this->set_sides(newSide, newSide, newSide);
-                cout << "Sides changed to  " << newSide << endl;
+                cout << "\nCurrent sides:\n";
                 this->show();
-
             }
-            else {
-                cout << "Invalid choice.\n";
-                cin.clear();
-                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            catch (const invalid_argument& e) {
+                cout << "Error: " << e.what() << endl;
             }
         }
     }
 
-    double area() const {
-        T a = this->a;
-        return (sqrt(3) / 4.0) * a * a;
-    }
-
-    double in_circle() const {
-        T a = this->a;
-        return a / (2.0 * sqrt(3));
-    }
-
-    double out_circle() const {
-        T a = this->a;
-        return a / sqrt(3);
-    }
-
-    T perimetr() const {
+    T perimetr(T qwe) const {
+        if (!isEquilateral()) throw invalid_argument("Triangle is not equilateral");
         return this->a * 3;
     }
-};
 
+    double area(T qwe) const {
+        if (!isEquilateral()) throw invalid_argument("Triangle is not equilateral");
+        T a = this->a;
+        return (sqrt(3) * pow(a, 2)) / 4;
+    }
+
+    double in_circle(T qwe) const {
+        if (!isEquilateral()) throw invalid_argument("Triangle is not equilateral");
+        T a = this->a;
+        return (a * sqrt(3) / 6);
+    }
+
+    double out_circle(T qwe) const {
+        if (!isEquilateral()) throw invalid_argument("Triangle is not equilateral");
+        T a = this->a;
+        return (sqrt(3) / 3) * a;
+    }
+};
